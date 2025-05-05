@@ -13,4 +13,5 @@
 - Python
 - Django
 - Bootstrap
+- PostgreSQL
 - Docker
