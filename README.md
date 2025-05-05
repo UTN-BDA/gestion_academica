@@ -1,9 +1,16 @@
-# Software para gestion academica
+# Software Gestion Academica
 
-## Integrantes:
+## Team Members:
 
 - Alvarado, Matias
 - Diaz, Agustin
 - Godoy, Santiago
 - Marin, Franco
 - Valdivieso, Gabriel
+
+## Technologies
+
+- Python
+- Django
+- Bootstrap
+- Docker
