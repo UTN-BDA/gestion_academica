@@ -1,13 +1,13 @@
 #!/bin/bash
 
 echo "Make migrations"
-python manage.py makemigrations app
+python /app/manage.py makemigrations app
 echo "-----------------------------------------------"
 
 echo "Applying migrations"
-python manage.py migrate
+python /app/manage.py migrate
 echo "-----------------------------------------------"
 
 echo "Starting server"
-python manage.py runserver 0.0.0.0:8000
+python /app/manage.py runserver 0.0.0.0:8000
 echo "-----------------------------------------------"
