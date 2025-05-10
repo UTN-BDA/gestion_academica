@@ -1,19 +1,21 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
+from .models import Career
 # Create your views here.
 
+
+
+# VISTA DE SITIO WEB
+
 def home(request):
-    return HttpResponse("HOME DJANGO")
+    return render(request, 'home.html')
 
-# VISTA DE INICIO falta terminar
-
-def inicio(request):
-    return render(request, 'inicio.html')
-
-# VISTAS PARA Usuario
-
-
-    
+# VISTAS PARA Usuarios
 
 # VISTAS para Carreras
 
+
+
+def lista_carreras(request):
+    carreras = Career.objects.all()
+    return render(request, 'carreras.html', {'carreras': carreras})
 # VISTAS    

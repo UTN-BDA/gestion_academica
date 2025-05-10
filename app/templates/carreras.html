@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Carreras registradas en UTN - FRSR</h2>
+
+<ul class="list-group mt-3">
+    {% for carrera in carreras %}
+        <li class="list-group-item">{{ carrera.name }}</li>
+    {% empty %}
+        <li class="list-group-item text-muted">No hay carreras registradas.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
