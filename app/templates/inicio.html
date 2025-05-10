@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menú Académico</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #2e86c1;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #21618c;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      padding: 15px 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #1b4f72;
+    }
+
+    main {
+      padding: 30px;
+    }
+
+    section {
+      background: white;
+      padding: 20px;
+      margin: 15px auto;
+      max-width: 800px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    section h2 {
+      color: #2e86c1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sistema Académico</h1>
+    <p>Gestión de información del estudiante</p>
+  </header>
+
+  <nav>
+    <a href="#home">HOME</a>
+    <a href="#alumno">ALUMNO</a>
+    <a href="#materias">MATERIAS</a>
+    <a href="#inscripciones">INSCRIPCIONES</a>
+    <a href="#notas">NOTAS</a>
+  </nav>
+
+  <main>
+    <section id="home">
+      <h2>Inicio</h2>
+      <p>Bienvenido al sistema académico. Aquí puedes gestionar tu información como estudiante.</p>
+    </section>
+
+    <section id="alumno">
+      <h2>Información del Alumno</h2>
+      <p>Nombre: Juan Pérez<br>Legajo: 20250123<br>Carrera: Ingeniería en Sistemas</p>
+    </section>
+
+    <section id="materias">
+      <h2>Materias</h2>
+      <ul>
+        <li>Programación I</li>
+        <li>Matemática Discreta</li>
+        <li>Sistemas y Organizaciones</li>
+      </ul>
+    </section>
+
+    <section id="inscripciones">
+      <h2>Inscripciones</h2>
+      <p>Período de inscripción abierto hasta el 20 de mayo.</p>
+      <button>Inscribirse a nuevas materias</button>
+    </section>
+
+    <section id="notas">
+      <h2>Notas</h2>
+      <table border="1" cellpadding="10" style="width:100%; border-collapse: collapse;">
+        <tr>
+          <th>Materia</th>
+          <th>Nota</th>
+        </tr>
+        <tr>
+          <td>Programación I</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>Matemática Discreta</td>
+          <td>7</td>
+        </tr>
+      </table>
+    </section>
+  </main>
+
+</body>
+</html>
