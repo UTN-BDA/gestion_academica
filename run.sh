@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Make migrations"
-python /app/manage.py makemigrations app
+python /app/manage.py makemigrations
 echo "-----------------------------------------------"
 
 echo "Applying migrations"
