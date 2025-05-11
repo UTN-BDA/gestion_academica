@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Career
+from django.contrib.auth import authenticate
 # Create your views here.
 
 
@@ -13,9 +14,18 @@ def home(request):
 
 # VISTAS para Carreras
 
-
-
 def lista_carreras(request):
     carreras = Career.objects.all()
     return render(request, 'carreras.html', {'carreras': carreras})
-# VISTAS    
+
+# VISTAS  de Usuario
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            return render(request, 'login.html', {'success': 'Inicio de sesión exitoso.'})
+        else:
+            return render(request, 'login.html', {'error': 'Credenciales inválidas.'})
+    return render(request, 'login.html')
