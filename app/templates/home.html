@@ -1,3 +1,4 @@
+<!-- APP/templates/home.html -->
 {% extends 'base.html' %}
 
 {% block content %}
@@ -8,7 +9,11 @@
 
 <nav class="bg-info d-flex justify-content-center flex-wrap">
     <a href="{% url 'home' %}" class="text-white px-4 py-3 fw-bold text-decoration-none">HOME</a>
-    <a href="{% url 'carrera' %}" class="text-white px-4 py-3 fw-bold text-decoration-none">CARRERAS</a>
-    <a href="{% url 'login' %}" class="text-white px-4 py-3 fw-bold text-decoration-none">LOGIN</a>
+    <a href="{% url 'materias:carrera' %}" class="text-white px-4 py-3 fw-bold text-decoration-none">CARRERAS</a>
+    <a href="{% url 'usuarios:login' %}" class="text-white px-4 py-3 fw-bold text-decoration-none">LOGIN</a>
+
+
+
 </nav>
 {% endblock %}
+

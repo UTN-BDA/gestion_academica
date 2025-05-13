@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
 
+app_name = 'materias'  # Define el app_name aquí
+
 urlpatterns = [
-    path('', views.home),
-     path('home/', views.home, name="home"),
-     path('carreras/', views.lista_carreras, name='carrera'),
-     path('login/', views.login, name='login')
+    path('carreras/', views.lista_carreras, name='carrera'),  # Asegúrate de que este 'name' esté correctamente definido
 ]
+
+     
