@@ -3,8 +3,6 @@ from django.db import models
 # Create your models here.
 
 # inscripciones/models.py
-
-from django.db import models
 from usuarios.models import User
 from materias.models import Materia
 
@@ -23,13 +21,13 @@ class Inscripcion(models.Model):
     
 
 class Nota(models.Model):
-    inscripcion = models.ForeignKey(Inscripcion, on_delete=models.CASCADE)
-    valor = models.DecimalField(max_digits=5, decimal_places=2)
-    fecha_registro = models.DateTimeField(auto_now_add=True)
+    inscripcion = models.ForeignKey('Inscripcion', on_delete=models.CASCADE)
+    nota = models.DecimalField(max_digits=4, decimal_places=2)
+    fecha_carga = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Nota'
         verbose_name_plural = 'Notas'
 
     def __str__(self):
-        return f"{self.inscripcion.estudiante} - {self.inscripcion.materia}: {self.valor}"    
+        return f"Nota {self.nota} - {self.inscripcion}"
