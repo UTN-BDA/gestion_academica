@@ -10,7 +10,7 @@ from .models import Inscripcion
 @login_required
 def inscribirse_materia(request):
     if request.user.rol != 'student':
-        return redirect('home')  # o mostrar mensaje de error
+        return redirect('home')  
 
     if request.method == 'POST':
         form = InscripcionForm(request.POST)
@@ -18,7 +18,7 @@ def inscribirse_materia(request):
             inscripcion = form.save(commit=False)
             inscripcion.estudiante = request.user
             inscripcion.save()
-            return redirect('lista_inscripciones')  # o cualquier vista que desees
+            return redirect('lista_inscripciones')  
     else:
         form = InscripcionForm()
 
