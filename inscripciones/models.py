@@ -20,3 +20,16 @@ class Inscripcion(models.Model):
 
     def __str__(self):
         return f"{self.estudiante} inscrito en {self.materia}"
+    
+
+class Nota(models.Model):
+    inscripcion = models.ForeignKey(Inscripcion, on_delete=models.CASCADE)
+    valor = models.DecimalField(max_digits=5, decimal_places=2)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Nota'
+        verbose_name_plural = 'Notas'
+
+    def __str__(self):
+        return f"{self.inscripcion.estudiante} - {self.inscripcion.materia}: {self.valor}"    
