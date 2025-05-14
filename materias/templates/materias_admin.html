@@ -5,9 +5,10 @@
 
 <ul class="list-group mt-3">
     {% for materia in materias %}
-        <li class="list-group-item">{{ materia.name }} ({{ materia.carrera.name }})</li>
+        <li class="list-group-item">{{ materia.nombre }} ({{ materia.carrera.name }})</li>
     {% empty %}
         <li class="list-group-item text-muted">No hay materias registradas.</li>
     {% endfor %}
 </ul>
 {% endblock %}
+
