@@ -1,0 +1,15 @@
+body {
+    margin: 0,
+}
+.izquierda {
+    background-color: #4492C7;
+    padding: 2rem;
+    position: relative;
+}
+.derecha{
+    background-color: #2B2A2A;
+}
+.izquierda p.small{
+    position: absolute;
+    bottom: 0;
+}

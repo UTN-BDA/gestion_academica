@@ -1,0 +1,13 @@
+{% extends 'app/base_admin.html' %}
+
+{% block content %}
+<h2>Usuarios registradas en UTN - FRSR</h2>
+
+<ul class="list-group mt-3">
+    {% for usuario in usuarios %}
+        <li class="list-group-item">{{ usuario.first_name }} {{ usuario.last_name}} ({{usuario.career.name}})</li>
+    {% empty %}
+        <li class="list-group-item text-muted">No hay usuarios registradas.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
