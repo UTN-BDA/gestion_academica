@@ -13,6 +13,7 @@ def login_view(request):
             messages.success(request, 'Inicio de sesión exitoso')  # Agregar mensaje de éxito
             return redirect('home')  # Redirigir a la página principal
         else:
-            return render(request, 'usuarios/login.html', {'error': 'Credenciales inválidas.'})
+            messages.error(request, 'Credenciales invalidas')
+            return render(request, 'usuarios/login.html')
     return render(request, 'usuarios/login.html')
 
