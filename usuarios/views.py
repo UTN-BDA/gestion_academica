@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate, login as auth_login
 
 from django.contrib import messages
 
+def default(request):
+    return redirect('usuarios:login')
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -14,6 +17,6 @@ def login_view(request):
             return redirect('home')  # Redirigir a la página principal
         else:
             messages.error(request, 'Credenciales invalidas')
-            return render(request, 'usuarios/login.html')
-    return render(request, 'usuarios/login.html')
+            return render(request, 'login.html')
+    return render(request, 'login.html')
 
