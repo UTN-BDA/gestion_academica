@@ -1,0 +1,37 @@
+{% extends 'app/base_user.html' %}
+
+{% block content %}
+<h2>Carreras disponibles</h2>
+
+<table class="table table-striped mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Nombre de Carrera</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for carrera in carreras %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ carrera.name }}</td>
+                <td>
+                    {% if carrera.id in carreras_inscriptas_ids %}
+                        <span class="text-success">Inscripto</span>
+                    {% else %}
+                        <form action="{% url 'materias:inscribirse_carrera' carrera.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary btn-sm">Inscribirse</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3" class="text-muted text-center">No hay carreras registradas.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'app/base_user.html' %}
+
+{% block content %}
+<h2>Materias disponibles</h2>
+
+<table class="table table-striped mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Nombre de Materia</th>
+            <th>Carrera</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for materia in materias %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ materia.nombre }}</td>
+                <td>{{ materia.carrera.name }}</td>
+                <td>
+                    {% if materia.id in materias_inscriptas_ids %}
+                        <span class="text-success">Inscripto</span>
+                    {% else %}
+                        <form action="{% url 'materias:inscribirse_materia' materia.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary btn-sm">Inscribirse</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4" class="text-muted text-center">No hay materias registradas.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -40,3 +40,12 @@ svg {
 		background-color: #0e4166;
     background-image: linear-gradient(to bottom, rgba(14, 65, 102, 0.86), #0e4166);
 	}
+
+    svg {
+    z-index: -1;              /* Asegura que esté detrás del contenido */
+}
+
+main {
+    position: relative;       /* Necesario para aplicar z-index correctamente */
+    z-index: 1;               /* Asegura que el contenido esté delante del SVG */
+}
