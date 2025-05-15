@@ -33,15 +33,6 @@
       z-index: 1;
     }
 
-    .utn-logo {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      width: 100px;
-      height: auto;
-      z-index: 2;
-    }
-
     svg {
       position: absolute;
       top: 0;
@@ -80,18 +71,20 @@
     }
 
     .bochitas-text {
-  font-size: 1.2rem; /* O usá 1.5rem si querés aún más grande */
-  color: #ffffffcc;  /* Blanco con un poco de transparencia */
-  bottom: 20px;
-  left: 30px;
-  margin: 0;
+      font-size: 1.2rem;
+      color: #ffffffcc;
+      bottom: 20px;
+      left: 30px;
+      margin: 0;
     }
 
+    .utn-logo-centered {
+      width: 150px;
+      height: auto;
+    }
   </style>
 </head>
 <body>
-
-  <img src="{% static 'images/utnlogo.png' %}" alt="Logo UTN" class="utn-logo">
 
   <!-- Fondo SVG animado -->
   <svg class="background-svg" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -130,6 +123,7 @@
   <!-- Contenido principal -->
   <div class="main-content container-fluid min-vh-100 d-flex align-items-center p-0">
     <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-white px-4">
+      <img src="{% static 'images/utnlogo.png' %}" alt="Logo UTN" class="utn-logo-centered mb-4">
       <h1 class="display-4 text-center">Sistema Académico</h1>
       <p class="lead text-center">Gestión de Información del Estudiante</p>
       <p class="bochitas-text position-absolute">TheBochitas Project</p>
