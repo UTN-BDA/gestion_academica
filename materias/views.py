@@ -37,7 +37,7 @@ def materias_usuario(request):
         'materias': materias,
         'materias_inscriptas_ids': materias_inscriptas_ids,
     }
-    return render(request, 'materias/materias_usuario.html', context)
+    return render(request, 'materias_usuario.html', context)
 
 @login_required
 def carreras_usuario(request):
@@ -50,7 +50,7 @@ def carreras_usuario(request):
         InscripcionCarrera.objects.get_or_create(estudiante=request.user, carrera=carrera)
         return redirect('materias:carreras_usuario')
 
-    return render(request, 'materias/carreras_usuario.html', {
+    return render(request, 'carreras_usuario.html', {
         'carreras': carreras,
         'carreras_inscriptas_ids': [i.carrera.id for i in inscripciones]  # <-- Cambiado aquí
     })
