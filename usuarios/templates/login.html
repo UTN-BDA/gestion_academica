@@ -37,7 +37,7 @@
       position: absolute;
       top: 15px;
       right: 20px;
-      width: 100px;
+      width: 200px;
       height: auto;
       z-index: 2;
     }
@@ -80,18 +80,28 @@
     }
 
     .bochitas-text {
-  font-size: 1.2rem; /* O usá 1.5rem si querés aún más grande */
-  color: #ffffffcc;  /* Blanco con un poco de transparencia */
-  bottom: 20px;
-  left: 30px;
-  margin: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 1.5rem; 
+      color: #ffffffcc;  
+      bottom: 20px;
+      left: 30px;
+      margin: 0;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .blink {
+      animation: blink 4s infinite;
     }
 
   </style>
 </head>
 <body>
 
-  <img src="{% static 'images/utnlogo.png' %}" alt="Logo UTN" class="utn-logo">
+  <img src="{% static 'images/ImagenUTN.png' %}" alt="Logo UTN" class="utn-logo">
 
   <!-- Fondo SVG animado -->
   <svg class="background-svg" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -130,9 +140,9 @@
   <!-- Contenido principal -->
   <div class="main-content container-fluid min-vh-100 d-flex align-items-center p-0">
     <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-white px-4">
-      <h1 class="display-4 text-center">Sistema Académico</h1>
+      <h1 class="display-4 text-center blink">Sistema Académico</h1>
       <p class="lead text-center">Gestión de Información del Estudiante</p>
-      <p class="bochitas-text position-absolute">TheBochitas Project</p>
+      <p class="bochitas-text position-absolute">©TheBochitas Project</p>
     </div>
 
     <div class="col-md-6 d-flex justify-content-center align-items-center px-4">
