@@ -84,7 +84,7 @@
                     <li class="nav-item mx-3"><a class="nav-link" href="{% url 'usuarios:user_home' %}">Inicio</a></li>
                     <li class="nav-item mx-3"><a class="nav-link" href="{% url 'materias:carreras_usuario' %}">Carrera</a></li>
                     <li class="nav-item mx-3"><a class="nav-link" href="{% url 'materias:materias_usuario' %}">Materias</a></li>
-                    <li class="nav-item mx-3"><a class="nav-link" href="#">Notas</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link" href="{% url 'inscripciones:lista_notas' %}">Notas</a></li>
                 </ul>
                 <span class="navbar-text">
                     Bienvenido '{{ request.user.first_name }}', <a href="{% url 'usuarios:logout' %}">Cerrar Sesion</a>

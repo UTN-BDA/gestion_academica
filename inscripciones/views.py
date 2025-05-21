@@ -23,3 +23,11 @@ def inscribirse_materia(request):
         form = InscripcionForm()
 
     return render(request, 'inscripciones/inscribirse.html', {'form': form})
+
+@login_required
+def lista_notas(request):
+    if request.user.rol != 'student':
+        return redirect('home')  
+
+    inscripciones = Inscripcion.objects.filter(estudiante=request.user)
+    return render(request, 'lista_notas.html', {'inscripciones': inscripciones})
