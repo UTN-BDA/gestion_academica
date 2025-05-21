@@ -2,10 +2,10 @@ body {
     background-color: #f8f9fa;
 }
 .navbar {
-    background-color: #4492C7;
+    background-color: #000000;
 }
 .navbar-brand span{
-    color: #2B2A2A;
+    color: #0e4166;
     font-weight: bold;
 }
 .navbar-nav {
@@ -18,7 +18,7 @@ body {
     color: white;
 }
 footer {
-    background-color: #4492C7;
+    background-color: #000000;
     color: white;
 }
 footer small {
