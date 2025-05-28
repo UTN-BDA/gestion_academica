@@ -49,3 +49,6 @@ main {
     position: relative;       /* Necesario para aplicar z-index correctamente */
     z-index: 1;               /* Asegura que el contenido esté delante del SVG */
 }
+.titulo-blanco {
+    color: white;
+}
