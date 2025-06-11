@@ -37,6 +37,8 @@ cd gestion_academica
 ```
 docker compose up -d --build
 ```
+En caso de ver el siguiente error: djangoapp  | exec /app/run.sh: no such file or directory
+Ingresar desde Visual Studio Code al archivo run.sh y cambiar en la parte inferior derecha del formato CRLF a LF. Luego reintentar levantar los contenedores.
 -  Crear superusuario para panel de administracion
 ```
 docker exec -it djangoapp /bin/bash
