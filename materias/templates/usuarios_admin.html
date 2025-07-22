@@ -6,6 +6,7 @@
 <table class="table table-striped mt-3">
     <thead class="table-dark">
         <tr>
+            <th>DNI</th>
             <th>Apellido</th>
             <th>Nombre</th>
             <th>Email</th>
@@ -15,6 +16,11 @@
     <tbody>
         {% for usuario in usuarios %}
             <tr>
+                <td>
+                    <a href="{% url 'materias:ver_inscripciones' usuario.dni %}">
+                        {{ usuario.dni }}
+                    </a>
+                </td>
                 <td>{{ usuario.first_name }}</td>
                 <td>{{ usuario.last_name }}</td>
                 <td>{{ usuario.email }}</td>

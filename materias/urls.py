@@ -7,6 +7,7 @@ urlpatterns = [
     path('administration/carreras/', views.lista_carreras, name='carrera'),
     path('administration/materias/', views.lista_materias, name='materia'),
     path('administration/usuarios/', views.lista_usuarios, name='usuario'),
+    path('administration/usuario/<str:dni>/inscripciones/', views.ver_inscripciones, name='ver_inscripciones'),
 
     path('user/carreras/', views.carreras_usuario, name='carreras_usuario'),
     path('user/inscribirse_carrera/<int:carrera_id>/', views.inscribirse_carrera, name='inscribirse_carrera'),

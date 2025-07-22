@@ -1,0 +1,14 @@
+{% extends 'app/base_admin.html' %}
+{% block content %}
+<h2>Materias de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
+
+<ul>
+    {% for inscripcion in materias_inscripto %}
+        <li>{{ inscripcion.materia.name }}</li>
+    {% empty %}
+        <li>No está inscripto en ninguna materia.</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
