@@ -2,7 +2,14 @@
 
 {% block content %}
 <h2 class="titulo-materias">Materias registradas en UTN - FRSR</h2>
-
+<div style="max-width: 500px;">
+    <form method="get" class="d-flex mb-3">
+        <input type="text" name="buscar" class="form-control me-2" placeholder="Buscar" value="{{request.GET.buscar}}">
+        <button type="submit" class="btn btn-primary">
+            Buscar
+        </button>
+    </form>
+</div>
 <table class="table table-striped mt-3">
     <thead class="table-dark">
         <tr>
