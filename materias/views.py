@@ -3,23 +3,46 @@ from django.shortcuts import render, redirect, get_object_or_404
 from usuarios.models import User
 from .models import Career, Materia
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from inscripciones.models import Inscripcion
 from inscripciones.models import InscripcionCarrera
 # Create your views here.
 
 @login_required
 def lista_carreras(request):
-    carreras = Career.objects.all()
+    query = request.GET.get('buscar')
+    if query:
+        carreras = Career.objects.filter(
+            Q(name__icontains=query)
+        )
+    else:
+        carreras = Career.objects.all()
     return render(request, 'carreras_admin.html', {'carreras': carreras})
 
 @login_required
 def lista_materias(request):
-    materias = Materia.objects.all()
+    query = request.GET.get('buscar')
+    if query:
+        materias = Materia.objects.filter(
+            Q(nombre__icontains=query) |
+            Q(carrera__name__icontains=query)
+        )
+    else:
+        materias = Materia.objects.all()
     return render(request, 'materias_admin.html', {'materias': materias})
 
 @login_required
 def lista_usuarios(request):
-    usuarios = User.objects.all()
+    query = request.GET.get('buscar')
+    if query:
+        usuarios = User.objects.filter(
+            Q(dni__icontains=query) |
+            Q(email__icontains=query) |
+            Q(last_name__icontains=query) |
+            Q(first_name__icontains=query)
+        )
+    else:
+        usuarios = User.objects.all()
     return render(request, 'usuarios_admin.html', {'usuarios': usuarios})
 
 @login_required
