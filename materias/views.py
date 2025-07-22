@@ -31,7 +31,12 @@ def lista_materias(request):
         )
     else:
         materias = Materia.objects.all()
-    return render(request, 'materias_admin.html', {'materias': materias})
+
+    paginator = Paginator(materias, 10)  # 10 materias por página
+    page_number = request.GET.get('page')
+    materias_paginadas = paginator.get_page(page_number)
+
+    return render(request, 'materias_admin.html', {'materias': materias_paginadas})
 
 @login_required
 def lista_usuarios(request):
