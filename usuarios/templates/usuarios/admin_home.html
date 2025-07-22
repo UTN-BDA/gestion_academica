@@ -1,0 +1,65 @@
+{% extends 'app/base_admin.html' %}
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Panel de Administración</h2>
+
+    <!-- Tarjetas resumen -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Usuarios</h5>
+                    <p class="card-text display-5">{{ total_usuarios }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Materias</h5>
+                    <p class="card-text display-5">{{ total_materias }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Carreras</h5>
+                    <p class="card-text display-5">{{ total_carreras }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Últimos usuarios registrados -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-info text-white">
+            Últimos Usuarios Registrados
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover m-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Fecha de Registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in ultimos_usuarios %}
+                    <tr>
+                        <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.date_joined|date:"d/m/Y" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center">No hay usuarios registrados recientemente.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
