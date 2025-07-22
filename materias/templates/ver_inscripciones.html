@@ -1,14 +1,33 @@
 {% extends 'app/base_admin.html' %}
+
 {% block content %}
-<h2>Materias de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
+<h2 class="titulo-usuarios">{{ usuario.first_name }} {{ usuario.last_name }}: Materias inscriptas</h2>
 
-<ul>
-    {% for inscripcion in materias_inscripto %}
-        <li>{{ inscripcion.materia.name }}</li>
-    {% empty %}
-        <li>No está inscripto en ninguna materia.</li>
-    {% endfor %}
-</ul>
-
+<table class="table table-striped mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Materia</th>
+            <th>Nota</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for inscripcion in materias_inscripto %}
+            <tr>
+                <td>{{ inscripcion.materia.nombre }}</td>
+                <td>
+                    {% if inscripcion.nota %}
+                        {{ inscripcion.nota.nota }}
+                    {% else %}
+                        <span class="text-muted">Sin calificar</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2" class="text-center text-muted">No está inscripto en ninguna materia.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}
