@@ -1,0 +1,74 @@
+{% extends 'app/base_admin.html' %}
+
+{% block content %}
+<h2 class="titulo-usuarios" style="text-decoration: underline;">
+    Perfil de '{{ usuario.first_name }} {{ usuario.last_name }}'
+</h2>
+<hr>
+
+<div style="max-width: 500px;">
+    <h4 class="titulo-usuarios">Datos Personales:</h4>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_dni" class="titulo-usuarios form-label fs-7">DNI</label>
+            {{ form.dni }}
+        </div>
+        <div class="mb-3">
+            <label for="id_first_name" class="titulo-usuarios form-label fs-7">Nombre</label>
+            {{ form.first_name }}
+        </div>
+        <div class="mb-2">
+            <label for="id_last_name" class="titulo-usuarios form-label fs-7">Apellido</label>
+            {{ form.last_name }}
+        </div>
+        <div class="mb-3">
+            <label for="id_email" class="titulo-usuarios form-label fs-7">Email</label>
+            {{ form.email }}
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 1rem;">
+            <button type="submit" class="btn btn-success" name="guardar_cambios">
+                Guardar cambios
+            </button>
+            <button type="submit" class="btn btn-danger" name="eliminar_usuario"
+                onclick="return confirm('¿Seguro que quieres eliminar el usuario?')">
+                Eliminar usuario
+            </button>
+        </div>
+    </form>
+</div>
+
+<hr>
+
+<h4 class="titulo-usuarios">Materias inscriptas</h4>
+<table class="table table-striped mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Materia</th>
+            <th>Nota</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for inscripcion in materias_inscripto %}
+            <tr>
+                <td>{{ inscripcion.materia.nombre }}</td>
+                <td>
+                    {% if inscripcion.nota %}
+                        {{ inscripcion.nota.nota }}
+                    {% else %}
+                        <span class="text-muted">Sin calificar</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2" class="text-center text-muted">
+                    No está inscripto en ninguna materia.
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

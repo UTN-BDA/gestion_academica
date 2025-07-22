@@ -24,7 +24,7 @@
         {% for usuario in usuarios %}
             <tr>
                 <td>
-                    <a href="{% url 'materias:ver_inscripciones' usuario.dni %}">
+                    <a href="{% url 'materias:ver_usuario' usuario.dni %}">
                         {{ usuario.dni }}
                     </a>
                 </td>

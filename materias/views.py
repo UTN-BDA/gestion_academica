@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
+from .forms import UsuarioForm
 from usuarios.models import User
 from .models import Career, Materia
 from django.contrib.auth.decorators import login_required
@@ -114,10 +115,22 @@ def inscribirse_materia(request, materia_id):
     return redirect('materias:materias_usuario')
 
 @login_required
-def ver_inscripciones(request, dni):
+def ver_usuario(request, dni):
     usuario = get_object_or_404(User, dni=dni)
     materias_inscripto = Inscripcion.objects.filter(estudiante=usuario)
-    return render(request, 'ver_inscripciones.html', {
+    if request.method == 'POST':
+        if 'eliminar_usuario' in request.POST:
+            usuario.delete()
+            return redirect('materias:usuario')
+        else:
+            form = UsuarioForm(request.POST, instance=usuario)
+            if form.is_valid():
+                form.save()
+                return redirect('materias:ver_usuario', dni=usuario.dni)
+    else:
+        form = UsuarioForm(instance=usuario)
+    return render(request, 'ver_usuario.html', {
         'usuario': usuario,
         'materias_inscripto': materias_inscripto,
+        'form': form,
     })
