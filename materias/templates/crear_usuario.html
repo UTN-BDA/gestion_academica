@@ -1,0 +1,42 @@
+{% extends 'app/base_admin.html' %}
+
+{% block content %}
+
+<div style="max-width: 500px;">
+    <h4 class="titulo-usuarios">Crear Nuevo Usuario</h4>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_dni" class="titulo-usuarios form-label fs-7">DNI</label>
+            {{ form.dni }}
+        </div>
+        <div class="mb-3">
+            <label for="id_first_name" class="titulo-usuarios form-label fs-7">Nombre</label>
+            {{ form.first_name }}
+        </div>
+        <div class="mb-3">
+            <label for="id_last_name" class="titulo-usuarios form-label fs-7">Apellido</label>
+            {{ form.last_name }}
+        </div>
+        <div class="mb-3">
+            <label for="id_email" class="titulo-usuarios form-label fs-7">Email</label>
+            {{ form.email }}
+        </div>
+        <div class="mb-3">
+            <label for="id_rol" class="titulo-usuarios form-label fs-7">Rol</label>
+            {{ form.rol }}
+         </div>
+        <div class="mb-3">
+            <label for="id_career" class="titulo-usuarios form-label fs-7">Carrera</label>
+            {{ form.career }}
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 1rem;">
+            <button type="submit" class="btn btn-success">Crear Usuario</button>
+            <a href="{% url 'materias:crear_usuario' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+        
+    </form>
+</div>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import UsuarioForm
+from .forms import UsuarioForm, UsuarioCrearForm
 from usuarios.models import User
 from .models import Career, Materia
 from django.contrib.auth.decorators import login_required
@@ -137,5 +137,20 @@ def ver_usuario(request, dni):
     return render(request, 'ver_usuario.html', {
         'usuario': usuario,
         'materias_inscripto': materias_inscripto,
+        'form': form,
+    })
+
+@login_required
+def crear_usuario(request):
+    if request.method == 'POST':
+        form = UsuarioCrearForm(request.POST)
+        if form.is_valid():
+            usuario = form.save(commit=False)
+            usuario.set_password(usuario.dni)
+            usuario.save()            
+            return redirect('materias:usuario')
+    else:
+        form = UsuarioCrearForm()
+    return render(request, 'crear_usuario.html', {
         'form': form,
     })
