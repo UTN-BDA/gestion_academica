@@ -51,7 +51,8 @@ def lista_usuarios(request):
             Q(dni__icontains=query) |
             Q(email__icontains=query) |
             Q(last_name__icontains=query) |
-            Q(first_name__icontains=query)
+            Q(first_name__icontains=query) |
+            Q(career__name__icontains=query)
         )
     else:
         usuarios_queryset = User.objects.all()
