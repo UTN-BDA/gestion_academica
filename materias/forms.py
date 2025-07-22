@@ -1,5 +1,6 @@
 from django import forms
 from usuarios.models import User
+from .models import Career, Materia
 
 class UsuarioForm(forms.ModelForm):
     class Meta:
@@ -29,3 +30,20 @@ class UsuarioCrearForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['rol'].required = True
         self.fields['career'].required = True
+
+class CareerForm(forms.ModelForm):
+    class Meta:
+        model = Career
+        fields = ['name']  # Ajusta si tu modelo Career tiene más campos
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class MateriaForm(forms.ModelForm):
+    class Meta:
+        model = Materia
+        fields = ['nombre', 'carrera']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'carrera': forms.Select(attrs={'class': 'form-select'}),
+        }

@@ -1,0 +1,18 @@
+{% extends 'app/base_admin.html' %}
+
+{% block content %}
+<div style="max-width: 500px;">
+    <h4 class="titulo-usuarios">Crear Nueva Carrera</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_name" class="titulo-usuarios form-label fs-7">Nombre de la Carrera</label>
+            {{ form.name }}
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 1rem;">
+            <button type="submit" class="btn btn-success">Crear Carrera</button>
+            <a href="{% url 'materias:carrera' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

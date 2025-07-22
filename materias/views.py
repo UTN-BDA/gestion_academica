@@ -159,3 +159,27 @@ def crear_usuario(request):
     return render(request, 'crear_usuario.html', {
         'form': form,
     })
+
+@login_required
+def crear_carrera(request):
+    from .forms import CareerForm
+    if request.method == 'POST':
+        form = CareerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('materias:carrera')
+    else:
+        form = CareerForm()
+    return render(request, 'crear_carrera.html', {'form': form})
+
+@login_required
+def crear_materia(request):
+    from .forms import MateriaForm
+    if request.method == 'POST':
+        form = MateriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('materias:materia')
+    else:
+        form = MateriaForm()
+    return render(request, 'crear_materia.html', {'form': form})

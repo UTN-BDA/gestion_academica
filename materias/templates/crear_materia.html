@@ -1,0 +1,22 @@
+{% extends 'app/base_admin.html' %}
+
+{% block content %}
+<div style="max-width: 500px;">
+    <h4 class="titulo-usuarios">Crear Nueva Materia</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_nombre" class="titulo-usuarios form-label fs-7">Nombre de la Materia</label>
+            {{ form.nombre }}
+        </div>
+        <div class="mb-3">
+            <label for="id_carrera" class="titulo-usuarios form-label fs-7">Carrera Asociada</label>
+            {{ form.carrera }}
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 1rem;">
+            <button type="submit" class="btn btn-success">Crear Materia</button>
+            <a href="{% url 'materias:materia' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
