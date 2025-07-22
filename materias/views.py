@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from inscripciones.models import Inscripcion
 from inscripciones.models import InscripcionCarrera
+from django.core.paginator import Paginator
 # Create your views here.
 
 @login_required
@@ -35,14 +36,19 @@ def lista_materias(request):
 def lista_usuarios(request):
     query = request.GET.get('buscar')
     if query:
-        usuarios = User.objects.filter(
+        usuarios_queryset = User.objects.filter(
             Q(dni__icontains=query) |
             Q(email__icontains=query) |
             Q(last_name__icontains=query) |
             Q(first_name__icontains=query)
         )
     else:
-        usuarios = User.objects.all()
+        usuarios_queryset = User.objects.all()
+
+    paginator = Paginator(usuarios_queryset, 10)  # Siempre se pagina
+    page_number = request.GET.get('page')
+    usuarios = paginator.get_page(page_number)
+
     return render(request, 'usuarios_admin.html', {'usuarios': usuarios})
 
 @login_required
