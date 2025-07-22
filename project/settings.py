@@ -64,7 +64,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 AUTH_USER_MODEL = 'usuarios.User'
 LOGIN_URL = 'usuarios:login'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
-SESSION_COOKIE_AGE = 60 * 5
+SESSION_COOKIE_AGE = 60 * 10
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Database
