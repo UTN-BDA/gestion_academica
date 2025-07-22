@@ -83,3 +83,12 @@ def inscribirse_materia(request, materia_id):
     Inscripcion.objects.get_or_create(estudiante=request.user, materia=materia)
 
     return redirect('materias:materias_usuario')
+
+@login_required
+def ver_inscripciones(request, dni):
+    usuario = get_object_or_404(User, dni=dni)
+    materias_inscripto = Inscripcion.objects.filter(estudiante=usuario)
+    return render(request, 'ver_inscripciones.html', {
+        'usuario': usuario,
+        'materias_inscripto': materias_inscripto,
+    })
