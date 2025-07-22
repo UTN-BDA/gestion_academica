@@ -14,11 +14,16 @@ from django.core.paginator import Paginator
 def lista_carreras(request):
     query = request.GET.get('buscar')
     if query:
-        carreras = Career.objects.filter(
+        carreras_queryset = Career.objects.filter(
             Q(name__icontains=query)
         )
     else:
-        carreras = Career.objects.all()
+        carreras_queryset = Career.objects.all()
+
+    paginator = Paginator(carreras_queryset, 10)  # 10 carreras por página
+    page_number = request.GET.get('page')
+    carreras = paginator.get_page(page_number)
+
     return render(request, 'carreras_admin.html', {'carreras': carreras})
 
 @login_required
