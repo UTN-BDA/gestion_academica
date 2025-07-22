@@ -3,6 +3,9 @@ FROM python:3.9-slim
 # Set the working directory
 WORKDIR /app
 
+# backup and restore
+RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
+
 # Copy and install the requirements into the container
 COPY requirements.txt .
 

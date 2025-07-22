@@ -60,3 +60,20 @@ python manage.py createsuperuser
         username: user
         password: password
     ```
+
+
+### BACKUP & RESTORE 
+# BACKUP 
+ - Para realizar BACKUP 
+ docker exec -it djangoapp /bin/bash
+
+python manage.py dbbackup  -->  este comando lo que hace es realizar el BACKUP
+
+LUEGO DE ESO se guarda en la carpeta de backups con un nombre 
+
+# RESTORE
+- Para realizar RESTORE 
+docker exec -it djangoapp /bin/bash
+
+python manage.py dbrestore backups/<nombre_archivo_generado_carpeta_backups>
+

@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'materias',
     'inscripciones',
     'usuarios',
+    'dbbackup',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,10 @@ LOGIN_URL = 'usuarios:login'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 SESSION_COOKIE_AGE = 60 * 10
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {
+    'location': '/backups',
+}
 
 # Database
 DATABASES = {
