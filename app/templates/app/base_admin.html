@@ -2,12 +2,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema Academico</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'base_admin.css' %}">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- FontAwesome para iconos -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="{% static 'base_admin.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
     <style>
         body {
             margin: 0;
@@ -32,58 +42,140 @@
             display: flex;
             flex-direction: column;
         }
+
+        /* Estilo NAVBAR 3D */
+        nav.navbar-3d {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1rem 2rem;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        nav.navbar-3d ul {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav.navbar-3d ul li {
+            margin: 0 1rem;
+        }
+
+        nav.navbar-3d ul li a {
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        nav.navbar-3d ul li a:hover {
+            color: #00f7ff;
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .navbar-text {
+            color: white;
+            margin-left: auto;
+            padding-left: 1rem;
+            font-weight: normal;
+            font-size: 0.9rem;
+        }
+
+        /* Íconos estilo 3D para los links */
+        nav.navbar-3d ul li a i {
+            font-size: 1.4rem;
+            /* Puedes agregar efectos extra si quieres */
+        }
     </style>
 </head>
 <body>
-    <svg class="background-svg" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+    <svg
+      class="background-svg"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 1600 900"
+      preserveAspectRatio="xMidYMax slice"
+    >
         <defs>
             <linearGradient id="bg">
                 <stop offset="0%" style="stop-color:rgba(130, 158, 249, 0.06)"></stop>
                 <stop offset="50%" style="stop-color:rgba(76, 190, 255, 0.6)"></stop>
                 <stop offset="100%" style="stop-color:rgba(115, 209, 72, 0.2)"></stop>
             </linearGradient>
-            <path id="wave" fill="url(#bg)" d="M-363.852,502.589c0,0,236.988-41.997,505.475,0
-    s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z" />
+            <path
+              id="wave"
+              fill="url(#bg)"
+              d="M-363.852,502.589c0,0,236.988-41.997,505.475,0
+                s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z"
+            />
         </defs>
         <g>
-            <use xlink:href='#wave' opacity=".3">
-                <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="10s"
-                    calcMode="spline" values="270 230; -334 180; 270 230" keyTimes="0; .5; 1"
-                    keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0" repeatCount="indefinite" />
+            <use xlink:href="#wave" opacity=".3">
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="translate"
+                  dur="10s"
+                  calcMode="spline"
+                  values="270 230; -334 180; 270 230"
+                  keyTimes="0; .5; 1"
+                  keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
+                  repeatCount="indefinite"
+                />
             </use>
-            <use xlink:href='#wave' opacity=".6">
-                <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="8s"
-                    calcMode="spline" values="-270 230;243 220;-270 230" keyTimes="0; .6; 1"
-                    keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0" repeatCount="indefinite" />
+            <use xlink:href="#wave" opacity=".6">
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="translate"
+                  dur="8s"
+                  calcMode="spline"
+                  values="-270 230;243 220;-270 230"
+                  keyTimes="0; .6; 1"
+                  keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
+                  repeatCount="indefinite"
+                />
             </use>
-            <use xlink:href='#wave' opacity=".9">
-                <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="6s"
-                    calcMode="spline" values="0 230;-140 200;0 230" keyTimes="0; .4; 1"
-                    keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0" repeatCount="indefinite" />
+            <use xlink:href="#wave" opacity=".9">
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="translate"
+                  dur="6s"
+                  calcMode="spline"
+                  values="0 230;-140 200;0 230"
+                  keyTimes="0; .4; 1"
+                  keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
+                  repeatCount="indefinite"
+                />
             </use>
         </g>
     </svg>
 
     <div class="content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand fw_bold text-white text-center d-flex flex-column align-items-center" href="#">
-                    <span>Sistema</span>
-                    <span>Academico</span>
-                </a>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5 px-3 mx-3">
-                        <li class="nav-item mx-3"><a class="nav-link" href="{% url 'usuarios:admin_home' %}">Inicio</a></li>
-                        <li class="nav-item mx-3"><a class="nav-link" href="{% url 'materias:carrera' %}">Carreras</a></li>
-                        <li class="nav-item mx-3"><a class="nav-link" href="{% url 'materias:materia' %}">Materias</a></li>
-                        <li class="nav-item mx-3"><a class="nav-link" href="{% url 'materias:usuario' %}">Usuarios</a></li>
-                    </ul>
-                    <span class="navbar-text">
-                        Bienvenido '{{ request.user.first_name }}', <a href="{% url 'usuarios:logout' %}">Cerrar Sesion</a>
-                    </span>
-                </div>
-            </div>
+        <nav class="navbar-3d">
+            <ul class="w-100">
+                <li><a href="{% url 'usuarios:admin_home' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="{% url 'materias:carrera' %}"><i class="fas fa-graduation-cap"></i> Carreras</a></li>
+                <li><a href="{% url 'materias:materia' %}"><i class="fas fa-book"></i> Materias</a></li>
+                <li><a href="{% url 'materias:usuario' %}"><i class="fas fa-users"></i> Usuarios</a></li>
+                <li class="ms-auto navbar-text">
+                    Bienvenido '{{ request.user.first_name }}' | <a href="{% url 'usuarios:logout' %}" style="color: #ffc107;">Cerrar Sesión</a>
+                </li>
+            </ul>
         </nav>
 
         <main class="flex-grow-1 p-4">
@@ -92,7 +184,7 @@
         </main>
 
         <footer class="text-center py-2">
-            <small>&copy; 2025 - Sistema de Gestion Academico. Todos los derechos reservados.</small>
+            <small>&copy; 2025 - Sistema de Gestión Académico. Todos los derechos reservados.</small>
         </footer>
     </div>
 
