@@ -77,3 +77,8 @@ docker exec -it djangoapp /bin/bash
 
 python manage.py dbrestore backups/<nombre_archivo_generado_carpeta_backups>
 
+### Comandos de utilidad
+Primero debemos ingresar al contenedor djangoapp `docker exec -it djangoapp /bin/bash`, y luego utilizar el comando deseado
+- Vaciar base de datos -> `python manage.py limpiar_bd`
+- Generar datos falsos -> `python manage.py generar_datos --carreras <cant> --materias <cant> --usuarios <cant> --inscripciones <cant>`
+- Crear usuario admin (admin/admin) -> `python manage.py createadmin`
