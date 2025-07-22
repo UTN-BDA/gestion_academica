@@ -32,7 +32,7 @@ class InscripcionCarrera(models.Model):
 
 
 class Nota(models.Model):
-    inscripcion = models.ForeignKey('Inscripcion', on_delete=models.CASCADE)
+    inscripcion = models.OneToOneField('Inscripcion', on_delete=models.CASCADE)
     nota = models.DecimalField(max_digits=4, decimal_places=2, default=0.00)
     fecha_carga = models.DateTimeField(auto_now_add=True)
 
