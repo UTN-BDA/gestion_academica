@@ -27,7 +27,11 @@
         {% for materia in materias %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ materia.nombre }}</td>
+                <td>
+                    <a href="{% url 'materias:editar_materia' materia.id %}">
+                        {{ materia.nombre }}
+                    </a>
+                </td>
                 <td>{{ materia.carrera.name }}</td>
             </tr>
         {% empty %}
@@ -39,7 +43,6 @@
 </table>
 
 <div class="pagination mt-4">
-    <!-- Paginación sin cambios -->
     <nav aria-label="Page navigation">
         <ul class="pagination">
             {% if materias.has_previous %}

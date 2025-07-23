@@ -1,26 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
-from .forms import UsuarioForm, UsuarioCrearForm
-from usuarios.models import User
-from .models import Career, Materia
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from inscripciones.models import Inscripcion
-from inscripciones.models import InscripcionCarrera
 from django.core.paginator import Paginator
-# Create your views here.
+
+from .forms import UsuarioForm, UsuarioCrearForm, CareerForm, MateriaForm
+from usuarios.models import User
+from .models import Career, Materia
+from inscripciones.models import Inscripcion, InscripcionCarrera
 
 @login_required
 def lista_carreras(request):
     query = request.GET.get('buscar')
     if query:
-        carreras_queryset = Career.objects.filter(
-            Q(name__icontains=query)
-        )
+        carreras_queryset = Career.objects.filter(Q(name__icontains=query))
     else:
         carreras_queryset = Career.objects.all()
 
-    paginator = Paginator(carreras_queryset, 10)  # 10 carreras por página
+    paginator = Paginator(carreras_queryset, 10)
     page_number = request.GET.get('page')
     carreras = paginator.get_page(page_number)
 
@@ -37,11 +33,25 @@ def lista_materias(request):
     else:
         materias = Materia.objects.all()
 
-    paginator = Paginator(materias, 10)  # 10 materias por página
+    paginator = Paginator(materias, 10)
     page_number = request.GET.get('page')
     materias_paginadas = paginator.get_page(page_number)
 
     return render(request, 'materias_admin.html', {'materias': materias_paginadas})
+
+@login_required
+def editar_materia(request, materia_id):
+    materia = get_object_or_404(Materia, id=materia_id)
+
+    if request.method == 'POST':
+        form = MateriaForm(request.POST, instance=materia)
+        if form.is_valid():
+            form.save()
+            return redirect('materias:materia')
+    else:
+        form = MateriaForm(instance=materia)
+
+    return render(request, 'editar_materia.html', {'form': form, 'materia': materia})
 
 @login_required
 def lista_usuarios(request):
@@ -57,7 +67,7 @@ def lista_usuarios(request):
     else:
         usuarios_queryset = User.objects.all()
 
-    paginator = Paginator(usuarios_queryset, 10)  # Siempre se pagina
+    paginator = Paginator(usuarios_queryset, 10)
     page_number = request.GET.get('page')
     usuarios = paginator.get_page(page_number)
 
@@ -65,7 +75,7 @@ def lista_usuarios(request):
 
 @login_required
 def materias_usuario(request):
-    carrera_actual = request.user.career  # o el campo que tengas para la carrera
+    carrera_actual = request.user.career
 
     if carrera_actual:
         materias = Materia.objects.filter(carrera=carrera_actual)
@@ -74,11 +84,10 @@ def materias_usuario(request):
 
     materias_inscriptas_ids = Inscripcion.objects.filter(estudiante=request.user).values_list('materia_id', flat=True)
 
-    context = {
+    return render(request, 'materias_usuario.html', {
         'materias': materias,
         'materias_inscriptas_ids': materias_inscriptas_ids,
-    }
-    return render(request, 'materias_usuario.html', context)
+    })
 
 @login_required
 def carreras_usuario(request):
@@ -93,21 +102,17 @@ def carreras_usuario(request):
 
     return render(request, 'carreras_usuario.html', {
         'carreras': carreras,
-        'carreras_inscriptas_ids': [i.carrera.id for i in inscripciones]  # <-- Cambiado aquí
+        'carreras_inscriptas_ids': [i.carrera.id for i in inscripciones]
     })
 
 @login_required
 def inscribirse_carrera(request, carrera_id):
     carrera_nueva = get_object_or_404(Career, id=carrera_id)
 
-    # Borrar inscripción anterior
     InscripcionCarrera.objects.filter(estudiante=request.user).delete()
-    Inscripcion.objects.filter(estudiante=request.user).delete()  # borra materias inscritas
+    Inscripcion.objects.filter(estudiante=request.user).delete()
 
-    # Crear nueva inscripción
     InscripcionCarrera.objects.create(estudiante=request.user, carrera=carrera_nueva)
-
-    # Actualizar campo en User (usar el mismo nombre que en el modelo)
     request.user.career = carrera_nueva
     request.user.save()
 
@@ -117,18 +122,17 @@ def inscribirse_carrera(request, carrera_id):
 def inscribirse_materia(request, materia_id):
     materia = get_object_or_404(Materia, id=materia_id)
 
-    # Verificar que la materia pertenezca a la carrera actual del usuario
     if request.user.career != materia.carrera:
         return redirect('materias:materias_usuario')
 
     Inscripcion.objects.get_or_create(estudiante=request.user, materia=materia)
-
     return redirect('materias:materias_usuario')
 
 @login_required
 def ver_usuario(request, dni):
     usuario = get_object_or_404(User, dni=dni)
     materias_inscripto = Inscripcion.objects.filter(estudiante=usuario)
+
     if request.method == 'POST':
         if 'eliminar_usuario' in request.POST:
             usuario.delete()
@@ -140,6 +144,7 @@ def ver_usuario(request, dni):
                 return redirect('materias:ver_usuario', dni=usuario.dni)
     else:
         form = UsuarioForm(instance=usuario)
+
     return render(request, 'ver_usuario.html', {
         'usuario': usuario,
         'materias_inscripto': materias_inscripto,
@@ -153,17 +158,14 @@ def crear_usuario(request):
         if form.is_valid():
             usuario = form.save(commit=False)
             usuario.set_password(usuario.dni)
-            usuario.save()            
+            usuario.save()
             return redirect('materias:usuario')
     else:
         form = UsuarioCrearForm()
-    return render(request, 'crear_usuario.html', {
-        'form': form,
-    })
+    return render(request, 'crear_usuario.html', {'form': form})
 
 @login_required
 def crear_carrera(request):
-    from .forms import CareerForm
     if request.method == 'POST':
         form = CareerForm(request.POST)
         if form.is_valid():
@@ -175,7 +177,6 @@ def crear_carrera(request):
 
 @login_required
 def crear_materia(request):
-    from .forms import MateriaForm
     if request.method == 'POST':
         form = MateriaForm(request.POST)
         if form.is_valid():
