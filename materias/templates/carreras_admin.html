@@ -20,6 +20,7 @@
         <tr>
             <th>#</th>
             <th>Nombre de Carrera</th>
+            <th>Inscriptos</th>
         </tr>
     </thead>
     <tbody>
@@ -31,10 +32,11 @@
                         {{ carrera.name }}
                     </a>
                 </td>
+                <td>{{ carrera.num_inscriptos }}</td>
             </tr>
         {% empty %}
             <tr>
-                <td colspan="2" class="text-muted text-center">No hay carreras registradas.</td>
+                <td colspan="3" class="text-muted text-center">No hay carreras registradas.</td>
             </tr>
         {% endfor %}
     </tbody>

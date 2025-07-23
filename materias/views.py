@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Count  # 👈 AÑADIDO Count
 from django.core.paginator import Paginator
 
 from .forms import UsuarioForm, UsuarioCrearForm, CareerForm, MateriaForm
 from usuarios.models import User
 from .models import Career, Materia
 from inscripciones.models import Inscripcion, InscripcionCarrera
+
 
 @login_required
 def lista_carreras(request):
@@ -16,11 +17,15 @@ def lista_carreras(request):
     else:
         carreras_queryset = Career.objects.all()
 
+    # ✅ Anotación para contar inscriptos
+    carreras_queryset = carreras_queryset.annotate(num_inscriptos=Count('inscripcioncarrera'))
+
     paginator = Paginator(carreras_queryset, 10)
     page_number = request.GET.get('page')
     carreras = paginator.get_page(page_number)
 
     return render(request, 'carreras_admin.html', {'carreras': carreras})
+
 
 @login_required
 def lista_materias(request):
@@ -33,11 +38,15 @@ def lista_materias(request):
     else:
         materias = Materia.objects.all()
 
+    # ✅ Anotación para contar inscriptos
+    materias = materias.annotate(num_inscriptos=Count('inscripcion'))
+
     paginator = Paginator(materias, 10)
     page_number = request.GET.get('page')
     materias_paginadas = paginator.get_page(page_number)
 
     return render(request, 'materias_admin.html', {'materias': materias_paginadas})
+
 
 @login_required
 def editar_materia(request, materia_id):
@@ -52,6 +61,7 @@ def editar_materia(request, materia_id):
         form = MateriaForm(instance=materia)
 
     return render(request, 'editar_materia.html', {'form': form, 'materia': materia})
+
 
 @login_required
 def lista_usuarios(request):
@@ -73,6 +83,7 @@ def lista_usuarios(request):
 
     return render(request, 'usuarios_admin.html', {'usuarios': usuarios})
 
+
 @login_required
 def materias_usuario(request):
     carrera_actual = request.user.career
@@ -88,6 +99,7 @@ def materias_usuario(request):
         'materias': materias,
         'materias_inscriptas_ids': materias_inscriptas_ids,
     })
+
 
 @login_required
 def carreras_usuario(request):
@@ -105,6 +117,7 @@ def carreras_usuario(request):
         'carreras_inscriptas_ids': [i.carrera.id for i in inscripciones]
     })
 
+
 @login_required
 def inscribirse_carrera(request, carrera_id):
     carrera_nueva = get_object_or_404(Career, id=carrera_id)
@@ -118,6 +131,7 @@ def inscribirse_carrera(request, carrera_id):
 
     return redirect('materias:carreras_usuario')
 
+
 @login_required
 def inscribirse_materia(request, materia_id):
     materia = get_object_or_404(Materia, id=materia_id)
@@ -127,6 +141,7 @@ def inscribirse_materia(request, materia_id):
 
     Inscripcion.objects.get_or_create(estudiante=request.user, materia=materia)
     return redirect('materias:materias_usuario')
+
 
 @login_required
 def ver_usuario(request, dni):
@@ -151,6 +166,7 @@ def ver_usuario(request, dni):
         'form': form,
     })
 
+
 @login_required
 def crear_usuario(request):
     if request.method == 'POST':
@@ -164,6 +180,7 @@ def crear_usuario(request):
         form = UsuarioCrearForm()
     return render(request, 'crear_usuario.html', {'form': form})
 
+
 @login_required
 def crear_carrera(request):
     if request.method == 'POST':
@@ -175,6 +192,7 @@ def crear_carrera(request):
         form = CareerForm()
     return render(request, 'crear_carrera.html', {'form': form})
 
+
 @login_required
 def crear_materia(request):
     if request.method == 'POST':
@@ -185,6 +203,8 @@ def crear_materia(request):
     else:
         form = MateriaForm()
     return render(request, 'crear_materia.html', {'form': form})
+
+
 @login_required
 def editar_carrera(request, carrera_id):
     carrera = get_object_or_404(Career, id=carrera_id)
