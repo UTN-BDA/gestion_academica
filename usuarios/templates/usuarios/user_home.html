@@ -7,13 +7,13 @@
         <div class="col-md-6">
             <h4>📚 Tu carrera</h4>
             {% if carrera %}
-                <p>{{ carrera.nombre }}</p>
+                <p>{{ carrera.name }}</p>
             {% else %}
-                <p class="text-warning">No estás inscrito en ninguna carrera.</p>
+                <p class="text-warning">No estás inscripto en ninguna carrera.</p>
             {% endif %}
         </div>
         <div class="col-md-6">
-            <h4>📘 Materias inscritas</h4>
+            <h4>📘 Materias inscriptas</h4>
             {% if inscripciones %}
                 <ul>
                     {% for ins in inscripciones %}
@@ -21,7 +21,7 @@
                     {% endfor %}
                 </ul>
             {% else %}
-                <p class="text-warning">No estás inscrito en materias actualmente.</p>
+                <p class="text-warning">No estás inscripto en materias actualmente.</p>
             {% endif %}
         </div>
     </div>
