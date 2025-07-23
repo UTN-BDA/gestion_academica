@@ -1,0 +1,52 @@
+{% extends 'app/base_user.html' %}
+{% block content %}
+<div class="container mt-4 text-white">
+    <h1 class="mb-4">Bienvenido, {{ request.user.first_name }}!</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>📚 Tu carrera</h4>
+            {% if carrera %}
+                <p>{{ carrera.nombre }}</p>
+            {% else %}
+                <p class="text-warning">No estás inscrito en ninguna carrera.</p>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h4>📘 Materias inscritas</h4>
+            {% if inscripciones %}
+                <ul>
+                    {% for ins in inscripciones %}
+                        <li>{{ ins.materia.nombre }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-warning">No estás inscrito en materias actualmente.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h4>📝 Últimas notas</h4>
+            {% if notas %}
+                <ul>
+                    {% for nota in notas %}
+                        <li>{{ nota.inscripcion.materia.nombre }}: <strong>{{ nota.nota }}</strong></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-warning">Aún no tenés notas cargadas.</p>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h4>🚀 Accesos rápidos</h4>
+            <ul>
+                <li><a href="{% url 'materias:materias_usuario' %}" class="text-info">Ver materias</a></li>
+                <li><a href="{% url 'inscripciones:lista_notas' %}" class="text-info">Ver notas</a></li>
+                <li><a href="{% url 'usuarios:logout' %}" class="text-info">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

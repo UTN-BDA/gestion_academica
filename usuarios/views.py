@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from usuarios.models import User  
 from materias.models import Materia, Career  
 from django.contrib import messages
+from inscripciones.models import Inscripcion, Nota, InscripcionCarrera
 
 def default(request):
     return redirect('usuarios:login')
@@ -56,3 +57,23 @@ def admin_home(request):
     }
 
     return render(request, 'usuarios/admin_home.html', context)
+
+@login_required
+def user_home(request):
+    estudiante = request.user
+
+    # Obtener carrera del usuario (si está inscrito)
+    ins_carrera = InscripcionCarrera.objects.filter(estudiante=estudiante).first()
+    carrera = ins_carrera.carrera if ins_carrera else None
+
+    # Obtener inscripciones a materias
+    inscripciones = Inscripcion.objects.filter(estudiante=estudiante)
+
+    # Obtener últimas notas
+    notas = Nota.objects.filter(inscripcion__estudiante=estudiante).order_by('-fecha_carga')[:5]
+
+    return render(request, 'usuarios/user_home.html', {
+        'carrera': carrera,
+        'inscripciones': inscripciones,
+        'notas': notas,
+    })
