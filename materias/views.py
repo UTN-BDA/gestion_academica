@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from .forms import UsuarioForm, UsuarioCrearForm, CareerForm, MateriaForm
 from usuarios.models import User
 from .models import Career, Materia
-from inscripciones.models import Inscripcion, InscripcionCarrera
+from inscripciones.models import Inscripcion, InscripcionCarrera, Nota
 
 
 @login_required
@@ -146,17 +146,29 @@ def inscribirse_materia(request, materia_id):
 @login_required
 def ver_usuario(request, dni):
     usuario = get_object_or_404(User, dni=dni)
-    materias_inscripto = Inscripcion.objects.filter(estudiante=usuario)
+    materias_inscripto = Inscripcion.objects.filter(estudiante=usuario).select_related('materia')
 
     if request.method == 'POST':
         if 'eliminar_usuario' in request.POST:
             usuario.delete()
             return redirect('materias:usuario')
-        else:
+
+        elif 'guardar_notas' in request.POST:
+            for inscripcion in materias_inscripto:
+                campo = f'nota_{inscripcion.id}'
+                valor = request.POST.get(campo)
+                if valor != "":
+                    nota_obj,_ = Nota.objects.get_or_create(inscripcion=inscripcion)
+                    nota_obj.nota = valor
+                    nota_obj.save()
+            return redirect('materias:ver_usuario', dni=usuario.dni)
+
+        else:  # guardar datos personales
             form = UsuarioForm(request.POST, instance=usuario)
             if form.is_valid():
                 form.save()
                 return redirect('materias:ver_usuario', dni=usuario.dni)
+
     else:
         form = UsuarioForm(instance=usuario)
 
@@ -165,7 +177,6 @@ def ver_usuario(request, dni):
         'materias_inscripto': materias_inscripto,
         'form': form,
     })
-
 
 @login_required
 def crear_usuario(request):
