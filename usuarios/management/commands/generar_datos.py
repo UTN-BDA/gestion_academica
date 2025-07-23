@@ -9,7 +9,7 @@ from faker import Faker
 import random
 from usuarios.models import User
 from materias.models import Career, Materia
-from inscripciones.models import Inscripcion
+from inscripciones.models import Inscripcion, Nota
 
 fake = Faker('es_AR')
 
@@ -66,6 +66,9 @@ class Command(BaseCommand):
             for _ in range(cant_inscripciones):
                 materia = random.choice(materias)
                 if not Inscripcion.objects.filter(estudiante=user, materia=materia).exists():
-                    Inscripcion.objects.create(estudiante=user, materia=materia)
+                    inscripcion = Inscripcion.objects.create(estudiante=user, materia=materia)
+                    if random.choice([True, False]):
+                        nota_valor = round(random.uniform(1.0, 10.0), 2)
+                        Nota.objects.create(inscripcion=inscripcion, nota=nota_valor)
         
         self.stdout.write(self.style.SUCCESS('Datos generados correctamente.'))
