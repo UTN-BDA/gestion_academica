@@ -185,3 +185,16 @@ def crear_materia(request):
     else:
         form = MateriaForm()
     return render(request, 'crear_materia.html', {'form': form})
+@login_required
+def editar_carrera(request, carrera_id):
+    carrera = get_object_or_404(Career, id=carrera_id)
+
+    if request.method == 'POST':
+        form = CareerForm(request.POST, instance=carrera)
+        if form.is_valid():
+            form.save()
+            return redirect('materias:carrera')
+    else:
+        form = CareerForm(instance=carrera)
+
+    return render(request, 'editar_carrera.html', {'form': form, 'carrera': carrera})

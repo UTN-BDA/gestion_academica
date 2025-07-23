@@ -6,6 +6,7 @@ app_name = 'materias'
 urlpatterns = [
     path('carreras/', views.lista_carreras, name='carrera'),
     path('crear_carrera/', views.crear_carrera, name='crear_carrera'),
+    path('editar_carrera/<int:carrera_id>/', views.editar_carrera, name='editar_carrera'),
 
     path('materias/', views.lista_materias, name='materia'),
     path('crear_materia/', views.crear_materia, name='crear_materia'),
