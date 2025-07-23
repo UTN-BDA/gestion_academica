@@ -30,4 +30,4 @@ def lista_notas(request):
         return redirect('home')  
 
     inscripciones = Inscripcion.objects.filter(estudiante=request.user)
-    return render(request, 'lista_notas.html', {'inscripciones': inscripciones})
+    return render(request, 'inscripciones/lista_notas.html', {'inscripciones': inscripciones})
