@@ -14,7 +14,7 @@ urlpatterns = [
 
     path('usuarios/', views.lista_usuarios, name='usuario'),
     path('crear_usuario/', views.crear_usuario, name='crear_usuario'),
-    path('ver_usuario/<int:dni>/', views.ver_usuario, name='ver_usuario'),
+    path('ver_usuario/<str:dni>/', views.ver_usuario, name='ver_usuario'),
 
     path('carreras_usuario/', views.carreras_usuario, name='carreras_usuario'),
     path('materias_usuario/', views.materias_usuario, name='materias_usuario'),
