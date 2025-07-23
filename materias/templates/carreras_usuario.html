@@ -3,7 +3,6 @@
 {% block content %}
 <style>
   :root {
-    --perspective: 60rem;
     --font-size: clamp(1rem, 2vw + 0.5rem, 2rem);
     --split-position: 49%;
     --split-thickness: 4px;
@@ -11,7 +10,6 @@
   }
 
   .Menu {
-    perspective: var(--perspective);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,37 +18,28 @@
   }
 
   .Menu-list {
-    font-family: 'Gilroy ExtraBold', system-ui, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    -webkit-font-smoothing: antialiased;
+    font-family: system-ui, sans-serif;
+    font-weight: bold;
     font-size: var(--font-size);
-    line-height: 1.2;
     text-transform: uppercase;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: rotateX(-10deg) rotateY(20deg);
     user-select: none;
     width: 100%;
   }
 
   .Menu-list-item {
     position: relative;
-    color: transparent;
-    cursor: pointer;
-    margin: 1rem 0;
-    padding: 2rem 2rem 3.5rem 2rem;
     background: linear-gradient(135deg, #1e084d, #071138);
     border-radius: 10px;
     box-shadow: 0 0 10px #00C3FFaa;
-    transition: color 0.4s ease;
     width: 100%;
     max-width: 500px;
-    word-wrap: break-word;
+    height: 130px;
+    margin: 1rem 0;
     overflow: hidden;
-    min-height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -59,64 +48,54 @@
 
   .Menu-list-item::before {
     content: '';
-    display: block;
     position: absolute;
     top: var(--split-position);
     left: -10%;
     right: -10%;
     height: var(--split-thickness);
-    border-radius: var(--split-thickness);
-    margin-top: calc(-1 * var(--split-thickness) / 2);
     background: var(--split-color);
     transform: scale(0);
-    transition: transform 0.8s cubic-bezier(.16,1.08,.38,.98);
+    transition: transform 0.4s ease-in-out;
     z-index: 1;
-  }
-
-  .Mask {
-    display: block;
-    position: absolute;
-    overflow: hidden;
-    color: var(--split-color);
-    top: 0;
-    height: var(--split-position);
-    transition: all 0.8s cubic-bezier(.16,1.08,.38,.98);
-    width: 100%;
-    text-align: center;
-    padding: 0 1rem;
-  }
-
-  .Mask + .Mask {
-    top: calc(var(--split-position) - 0.1px);
-    height: calc(100% - var(--split-position) + 0.1px);
-  }
-
-  .Mask span {
-    display: block;
-    font-weight: bold;
-    white-space: normal;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    line-height: 1.1;
-    padding: 0 1rem;
-  }
-
-  .Menu-list-item:hover,
-  .Menu-list-item:active {
-    color: white !important;
-  }
-
-  .Menu-list-item:hover .Mask {
-    color: #fff;
-    transform: skewX(12deg) translateX(5px);
-  }
-
-  .Menu-list-item:hover .Mask + .Mask {
-    transform: skewX(12deg) translateX(-5px);
   }
 
   .Menu-list-item:hover::before {
     transform: scale(1);
+  }
+
+  .Mask {
+    position: absolute;
+    width: 100%;
+    padding: 0 1rem;
+    color: var(--split-color);
+    overflow: hidden;
+    text-align: center;
+    top: 0;
+    height: var(--split-position);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .Mask + .Mask {
+    top: var(--split-position);
+    height: calc(100% - var(--split-position));
+  }
+
+  .Mask span {
+    font-weight: bold;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+
+  .Menu-list-item:hover .Mask span {
+    color: white;
   }
 
   .inscribir-btn {
@@ -137,6 +116,7 @@
     background-color: #0095d9;
   }
 </style>
+
 
 <h2 class="text-white text-center mb-4">Carreras disponibles</h2>
 
@@ -179,7 +159,7 @@
         transformPoster = 'translate3d(0, ' + -offsetX * offsetPoster + 'px, 0) rotateX(' + (-offsetY * offsetPoster) + 'deg) rotateY(' + (offsetX * (offsetPoster * 2)) + 'deg)';
 
     if (angle < 0) {
-      angle = angle + 360;
+      angle += 360;
     }
 
     $menu.css('transform', transformPoster);
